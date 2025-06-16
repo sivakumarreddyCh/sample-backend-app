@@ -5,13 +5,13 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install production dependencies
+RUN npm install --production
 
 # Copy the rest of the application source code
 COPY . .
 
-# If your frontend requires a build step, uncomment the following line:
+# If your backend requires a build step, uncomment the following line:
 # RUN npm run build
 
 # Stage 2: Production Stage
@@ -21,8 +21,8 @@ WORKDIR /app
 # Copy the application and dependencies from the build stage
 COPY --from=build /app /app
 
-# Expose the frontend port
-EXPOSE 3000
+# Expose the backend port
+EXPOSE 3001
 
 # Run the application using npm start
 CMD ["npm", "start"]
