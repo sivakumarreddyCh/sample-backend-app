@@ -1,5 +1,5 @@
 # Stage 1: Build Stage
-FROM node:16-alpine AS build
+FROM node:18-alpine AS build
 WORKDIR /app
 
 # Copy only package files to leverage Docker's caching mechanism
@@ -14,7 +14,7 @@ COPY . .
 # RUN npm run build
 
 # Stage 2: Production Stage
-FROM gcr.io/distroless/nodejs:16
+FROM gcr.io/distroless/nodejs:18
 WORKDIR /app
 
 # Copy the application and dependencies from the build stage
@@ -24,4 +24,4 @@ COPY --from=build /app /app
 EXPOSE 3001
 
 # Define the command to run the backend server
-CMD ["server.js"]  # Replace with your actual entry point if different
+CMD ["server.js"]
