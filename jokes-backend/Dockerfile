@@ -2,15 +2,16 @@
 FROM node:18-alpine AS build
 WORKDIR /app
 
-# Copy only package files to leverage Docker's caching mechanism
+# Copy package.json and package-lock.json
 COPY package*.json ./
-RUN npm install --production
 
-# Copy the remaining application source code
+# Install dependencies
+RUN npm install
+
+# Copy the rest of the application source code
 COPY . .
 
-# If your backend requires a build step (e.g., for TypeScript), include it here
-# Uncomment the following line if applicable:
+# If your frontend requires a build step, uncomment the following line:
 # RUN npm run build
 
 # Stage 2: Production Stage
@@ -20,8 +21,8 @@ WORKDIR /app
 # Copy the application and dependencies from the build stage
 COPY --from=build /app /app
 
-# Expose the backend service port (adjust if different)
-EXPOSE 3001
+# Expose the frontend port
+EXPOSE 3000
 
-# Define the command to run the backend server
-CMD ["server.js"]
+# Run the application using npm start
+CMD ["npm", "start"]
