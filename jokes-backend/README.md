@@ -5,7 +5,7 @@ A simple Express.js backend that serves random jokes via an API.
 
 ## Features
 
-- Exposes an endpoint `/joke` to return a random joke.
+- Exposes an endpoint /joke to return a random joke.
 - Built with Express.js.
 - Dockerized for easy deployment.
 
@@ -35,10 +35,10 @@ A simple Express.js backend that serves random jokes via an API.
 ### Using Docker:
 
 1. Build the Docker image:
-   docker build -t jokes-backend .
+   docker build -t joke-backend .
 
 2. Run the container:
-   docker run -p 3001:3001 jokes-backend
+   docker run -p 3001:3001 joke-backend
 
 3. Access the API at http://localhost:3001/joke
 

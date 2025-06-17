@@ -1,0 +1,22 @@
+trigger:
+- main
+
+pool:
+  name: 'self-pool-for-mac'
+
+variables:
+  KUBERNETES_NAMESPACE: 'backend'
+
+steps:
+- download: current
+  artifact: build-artifact.txt
+  displayName: 'Download Build Artifacts'
+
+- script: |
+    echo "Setting Kubernetes context"
+    kubectl config set-context --current --namespace=$(KUBERNETES_NAMESPACE)
+
+    echo "Applying Kubernetes manifests."
+    kubectl apply -f ./k8/deployment.yaml
+    kubectl apply -f ./k8/service.yaml
+  displayName: 'Deploy to Kubernetes'
